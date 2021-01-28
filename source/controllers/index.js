@@ -1,4 +1,4 @@
-exports.getPersonalInfo = async (req, res) => {
+export const getPersonalInfo = async (req, res) => {
   return res.json({
     message: "My Rule-Validation API",
     status: "success",

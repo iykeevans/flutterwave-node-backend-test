@@ -1,5 +1,5 @@
-const express = require("express");
-const { getPersonalInfo } = require("../controllers");
+import express from "express";
+import { getPersonalInfo } from "../controllers";
 
 const router = express.Router();
 
