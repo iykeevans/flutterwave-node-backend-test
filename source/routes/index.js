@@ -1,9 +1,8 @@
 const express = require("express");
+const { getPersonalInfo } = require("../controllers");
 
 const router = express.Router();
 
-router.all("/", (req, res) => {
-  res.send("Hello World");
-});
+router.all("/", getPersonalInfo);
 
 module.exports = router;
