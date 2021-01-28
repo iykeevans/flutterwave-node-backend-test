@@ -1,10 +1,11 @@
-const express = require("express");
-const bodyParser = require("body-parser");
-const helmet = require("helmet");
-const cors = require("cors");
-const logger = require("morgan");
+import express from "express";
+import bodyParser from "body-parser";
+import helmet from "helmet";
+import cors from "cors";
+import logger from "morgan";
+import "@babel/polyfill";
 
-const routes = require("./routes");
+import routes from "./routes";
 
 // invoke express
 const app = express();
