@@ -1,4 +1,7 @@
-export const getPersonalInfo = async (req, res) => {
+import handleObjectData from "../helpers/handleObjectData";
+import handleStringAndArrayData from "../helpers/handleStringAndArrayData";
+
+export const getPersonalInfo = (req, res) => {
   return res.json({
     message: "My Rule-Validation API",
     status: "success",
@@ -10,4 +13,16 @@ export const getPersonalInfo = async (req, res) => {
       twitter: "@iykeevan",
     },
   });
+};
+
+export const validateRule = (req, res) => {
+  if (typeof req.body.data === "string" || req.body.data instanceof Array) {
+    const { statusCode, ...rest } = handleStringAndArrayData(req.body);
+
+    res.status(statusCode).json(rest);
+  } else {
+    const { statusCode, ...rest } = handleObjectData(req.body);
+
+    res.status(statusCode).json(rest);
+  }
 };

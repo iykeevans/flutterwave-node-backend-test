@@ -6,6 +6,7 @@ import logger from "morgan";
 import "@babel/polyfill";
 
 import routes from "./routes";
+import handleErrors from "./middlewares/handleErrors";
 
 // invoke express
 const app = express();
@@ -23,5 +24,7 @@ app.use(cors());
 app.use(logger("dev"));
 
 app.use(routes);
+
+app.use(handleErrors);
 
 module.exports = app;
