@@ -7,6 +7,7 @@ import "@babel/polyfill";
 
 import routes from "./routes";
 import handleErrors from "./middlewares/handleErrors";
+import { formatError } from "./helpers/formatters";
 
 // invoke express
 const app = express();
@@ -25,6 +26,13 @@ app.use(logger("dev"));
 
 app.use(routes);
 
+app.all("*", (req, res) => {
+  const { statusCode, ...rest } = formatError("current route does not exist.");
+
+  res.status(statusCode).json(rest);
+});
+
+// to apply error middleware to server
 app.use(handleErrors);
 
 module.exports = app;

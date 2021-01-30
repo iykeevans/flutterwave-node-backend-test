@@ -1,3 +1,9 @@
+/**
+ * @function evaluator
+ * @param {object}
+ * @returns {boolean}
+ * @exports evaluator
+ */
 export default ({ fieldValue, condition, condition_value }) => {
   if (condition === "eq") return fieldValue === condition_value;
   if (condition === "neq") return fieldValue !== condition_value;

@@ -7,7 +7,7 @@
     "clean": "rm -rf dist",
     "build": "npm run clean && npm run build:babel",
     "build:babel": "babel -d ./dist ./source -s --ignore \"source/**/*.spec.js\",\"source/**/*.test.js\"",
-    "test": "jest",
+    "test": "jest --coverage",
     "dev": "nodemon --exec babel-node ./source/server",
     "start": "npm run build && node ./dist/server"
   },
@@ -23,7 +23,6 @@
   },
   "homepage": "https://github.com/iykeevans/flutterwave-node-backend-test#readme",
   "dependencies": {
-    "@hapi/joi": "^17.1.1",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
