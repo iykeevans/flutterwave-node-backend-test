@@ -1,6 +1,13 @@
 import handleObjectData from "../helpers/handleObjectData";
 import handleStringAndArrayData from "../helpers/handleStringAndArrayData";
 
+/**
+ * @function getPersonalInfo
+ * @param {object} req - request object
+ * @param {object} res - response object
+ * @returns {object}
+ * @exports getPersonalInfo
+ */
 export const getPersonalInfo = (req, res) => {
   return res.json({
     message: "My Rule-Validation API",
@@ -15,6 +22,13 @@ export const getPersonalInfo = (req, res) => {
   });
 };
 
+/**
+ * @function validateRule
+ * @param {object} req - request object
+ * @param {object} res - response object
+ * @returns {object}
+ * @exports validateRule
+ */
 export const validateRule = (req, res) => {
   if (typeof req.body.data === "string" || req.body.data instanceof Array) {
     const { statusCode, ...rest } = handleStringAndArrayData(req.body);

@@ -1,38 +1,21 @@
-import Joi from "@hapi/joi";
+import schema from "./schema";
 
-const schema = Joi.object()
-  .keys({
-    rule: Joi.object()
-      .keys({
-        field: Joi.string().required(),
-        condition: Joi.string()
-          .valid("eq", "neq", "gt", "gte", "contains")
-          .required(),
-        condition_value: Joi.alternatives()
-          .try(Joi.string(), Joi.number())
-          .required(),
-      })
-      .required()
-      .messages({ "object.base": "rule should be an object" }),
-    data: Joi.alternatives()
-      .try(Joi.string(), Joi.array(), Joi.object())
-      .required(),
-  })
-  .label("payload");
-
+/**
+ * @function validator
+ * @param {object} req - request object
+ * @param {object} res - response object
+ * @param {object} next - express next handler function
+ * @returns {void}
+ * @exports validator
+ */
 export default (req, res, next) => {
   const { error } = schema.validate(req.body);
+  // console.log(error);
   if (error) {
-    res.status(400);
+    // regex to remove double quotes added by joi library
     const errorMessage = error.message.replace(/"([^"]+(?="))"/g, "$1");
-    next(
-      new Error(errorMessages[error.details[0].context.label] || errorMessage)
-    );
+    next(new Error(errorMessage));
   } else {
     next();
   }
-};
-
-const errorMessages = {
-  payload: "Invalid JSON payload passed",
 };
