@@ -1,10 +1,14 @@
-/**
- * @function evaluator
- * @param {object}
- * @returns {boolean}
- * @exports evaluator
- */
-export default ({ fieldValue, condition, condition_value }) => {
+interface IPayload {
+  fieldValue: string | number;
+  condition: string;
+  condition_value: string | number;
+}
+
+export default ({
+  fieldValue,
+  condition,
+  condition_value,
+}: IPayload): boolean => {
   if (condition === "eq") return fieldValue === condition_value;
   if (condition === "neq") return fieldValue !== condition_value;
   if (condition === "gt") return fieldValue > condition_value;

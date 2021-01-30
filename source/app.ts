@@ -26,7 +26,7 @@ app.use(logger("dev"));
 
 app.use(routes);
 
-app.all("*", (req, res) => {
+app.all("*", (req: express.Request, res: express.Response) => {
   const { statusCode, ...rest } = formatError("current route does not exist.");
 
   res.status(statusCode).json(rest);
@@ -35,4 +35,4 @@ app.all("*", (req, res) => {
 // to apply error middleware to server
 app.use(handleErrors);
 
-module.exports = app;
+export default app;

@@ -1,7 +1,23 @@
 const supertest = require("supertest");
 
-const app = require("../app");
 const { formatError } = require("../helpers/formatters");
+
+interface IPayload {
+  rule?: IRule;
+  data?: any;
+}
+
+interface IRule {
+  field?: any;
+  condition?: any;
+  condition_value?: any;
+}
+
+let app: any;
+beforeAll(async () => {
+  const mod = await import("../app");
+  app = (mod as any).default;
+});
 
 test("Test if route does not exist", async () => {
   const { statusCode, ...rest } = formatError("current route does not exist.");
@@ -34,7 +50,7 @@ describe("Testing simple rule-validation API '/' route", () => {
 
 describe("Testing simple rule-validation API '/validate-rule' route", () => {
   it("Should throw err if payload is an invalid json", async () => {
-    const payload = [];
+    const payload: [] = [];
 
     const { statusCode, ...rest } = formatError("Invalid JSON payload passed.");
 
@@ -69,7 +85,7 @@ describe("Testing simple rule-validation API '/validate-rule' route", () => {
   });
 
   it("Should throw err if rule.field value is not a string", async () => {
-    const payload = {
+    const payload: IPayload = {
       rule: {
         field: null,
       },
@@ -118,7 +134,7 @@ describe("Testing simple rule-validation API '/validate-rule' route", () => {
   });
 
   it("Should throw err if rule.condition value is not one of [eq, neq, gt, gte, contains]", async () => {
-    const payload = {
+    const payload: IPayload = {
       rule: {
         field: "5",
         condition: null,
@@ -154,7 +170,7 @@ describe("Testing simple rule-validation API '/validate-rule' route", () => {
   });
 
   it("Should throw err if rule.condition_value value is not one of [string, number]", async () => {
-    const payload = {
+    const payload: IPayload = {
       rule: {
         field: "5",
         condition: "eq",
@@ -209,7 +225,7 @@ describe("Testing simple rule-validation API '/validate-rule' route", () => {
   });
 
   it("Should throw err if data value is not one of [string, array, object]", async () => {
-    const payload = {
+    const payload: IPayload = {
       rule: {
         field: "5",
         condition: "eq",
@@ -302,16 +318,6 @@ describe("Testing simple rule-validation API '/validate-rule' route", () => {
         },
         data: "ty",
       };
-
-      // const { statusCode, ...rest } = formatValidationResponse(
-      //   {
-      //     field: payload.rule.field,
-      //     fieldValue: payload.data[Number(payload.rule.field)],
-      //     condition: payload.rule.condition,
-      //     condition_value: payload.rule.condition_value,
-      //   },
-      //   400
-      // );
 
       const { statusCode, ...rest } = formatError(
         "field 5 is missing from data."
