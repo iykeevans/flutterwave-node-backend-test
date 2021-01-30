@@ -1,3 +1,5 @@
+import { Request, Response } from "express";
+
 import handleObjectData from "../helpers/handleObjectData";
 import handleStringAndArrayData from "../helpers/handleStringAndArrayData";
 
@@ -8,7 +10,7 @@ import handleStringAndArrayData from "../helpers/handleStringAndArrayData";
  * @returns {object}
  * @exports getPersonalInfo
  */
-export const getPersonalInfo = (req, res) => {
+export const getPersonalInfo = (req: Request, res: Response) => {
   return res.json({
     message: "My Rule-Validation API",
     status: "success",
@@ -29,7 +31,7 @@ export const getPersonalInfo = (req, res) => {
  * @returns {object}
  * @exports validateRule
  */
-export const validateRule = (req, res) => {
+export const validateRule = (req: Request, res: Response) => {
   if (typeof req.body.data === "string" || req.body.data instanceof Array) {
     const { statusCode, ...rest } = handleStringAndArrayData(req.body);
 

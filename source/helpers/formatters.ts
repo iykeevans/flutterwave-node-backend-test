@@ -1,36 +1,37 @@
-/**
- * @function generateMessage
- * @param {string} field
- * @param {number} statusCode
- * @returns {string} generated message
- */
-const generateMessage = (field, statusCode) => {
+const generateMessage = (
+  field: string | number,
+  statusCode: number
+): string => {
   return `field ${field} ${
     statusCode === 200 ? "successfully validated" : "failed validation"
   }.`;
 };
 
-/**
- * @function formatError
- * @param {string} message
- * @returns {object}
- * @exports formatError
- */
-export const formatError = (message) => ({
+interface IFormatError {
+  statusCode: number;
+  status: string;
+  message: string;
+  data: object;
+}
+
+export const formatError = (message: string): IFormatError => ({
   statusCode: 400,
   status: "error",
   message,
   data: null,
 });
 
-/**
- * @function formatValidationResponse
- * @param {object} payload
- * @param {Number} statusCode
- * @returns {object}
- * @exports formatValidationResponse
- */
-export const formatValidationResponse = (payload, statusCode = 200) => {
+interface IPayload {
+  field: string;
+  fieldValue: string | number;
+  condition: string;
+  condition_value: string | number;
+}
+
+export const formatValidationResponse = (
+  payload: IPayload,
+  statusCode = 200
+) => {
   const { field, fieldValue, condition, condition_value } = payload;
 
   return {

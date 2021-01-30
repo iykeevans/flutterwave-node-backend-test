@@ -1,13 +1,18 @@
 import { formatError, formatValidationResponse } from "./formatters";
 import evaluator from "./evaluator";
 
-/**
- * @function handleObjectData
- * @param {object} payload - req.body payload
- * @returns {object}
- * @exports handleObjectData
- */
-export default ({ rule, data }) => {
+interface IPayload {
+  rule: IRule;
+  data: any;
+}
+
+interface IRule {
+  field: string;
+  condition: string;
+  condition_value: string | number;
+}
+
+export default ({ rule, data }: IPayload) => {
   const { field, condition, condition_value } = rule;
   const fieldArray = field.split(".");
 
